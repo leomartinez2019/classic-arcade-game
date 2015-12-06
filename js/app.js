@@ -81,7 +81,8 @@ Player.prototype.handleInput = function(keyPressed) {
     else if (keyPressed == 'up') {
         this.y -= this.speed;
         if (this.y < -5) {
-            this.y = -5;
+            this.y = 410;
+            this.x = 100;
         }
     }
     else if (keyPressed == 'down') {
