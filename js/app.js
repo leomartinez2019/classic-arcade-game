@@ -65,28 +65,29 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(keyPressed) {
+    console.log(this.y);
     if (keyPressed == 'right') {
         this.x += this.speed;
-        if (this.x > 500) {
-            this.x = 500;
+        if (this.x > 415) {
+            this.x = 415;
         }
     }
     else if (keyPressed == 'left') {
         this.x -= this.speed;
-        if (this.x < 5) {
-            this.x = 5;
+        if (this.x < -5) {
+            this.x = -5;
         }
     }
     else if (keyPressed == 'up') {
         this.y -= this.speed;
-        if (this.y > 600) {
-            this.y = 600;
+        if (this.y < -5) {
+            this.y = -5;
         }
     }
     else if (keyPressed == 'down') {
         this.y += this.speed;
-        if (this.y < 6) {
-            this.y = 6;
+        if (this.y > 434) {
+            this.y = 434;
         }
     }
 }
