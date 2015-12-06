@@ -83,7 +83,8 @@ var Engine = (function(global) {
         checkCollisions();
     }
 
-    // Check collisions
+    // Check collisions between the player and each enemy
+    // Sends the player to an initial position
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
             if (Math.abs(enemy.xValue - player.x) < 50 && Math.abs(enemy.yValue - player.y) < 60) {

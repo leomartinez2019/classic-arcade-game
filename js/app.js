@@ -2,12 +2,11 @@
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.yValue = 0;
-    this.xValue = 20;
-    //this.speed = 150;
     this.speedList = [50, 150, 250, 350];
     this.yList = [65, 145, 230];
     this.xList = [-150, -120, -90, -60, -30];
+    this.xValue = choice(this.xList);
+    this.yValue = choice(this.yList);
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -17,12 +16,10 @@ var Enemy = function() {
 // to position the enemy randomly
 // This function is called by the update function
 function choice(container) {
-    // The possible y coordinates of the enemies
-    
+    // Returns the possible y coordinates of the enemies
     var indx = Math.floor(Math.random() * container.length);
         return container[indx];
 }
-
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -42,16 +39,14 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.xValue, this.yValue);
 };
 
-// To handle keyboard
-//var k = new Kibo();
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
     this.x = 100;
     this.y = 410;
-    this.speed = 8;
+    this.xSpeed = 100;
+    this.ySpeed = 84;
     this.sprite = 'images/char-boy.png';
 }
 
@@ -65,33 +60,33 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(keyPressed) {
-    console.log(this.y);
     if (keyPressed == 'right') {
-        this.x += this.speed;
+        this.x += this.xSpeed;
         if (this.x > 415) {
             this.x = 415;
         }
     }
     else if (keyPressed == 'left') {
-        this.x -= this.speed;
+        this.x -= this.xSpeed;
         if (this.x < -5) {
             this.x = -5;
         }
     }
     else if (keyPressed == 'up') {
-        this.y -= this.speed;
+        this.y -= this.ySpeed;
         if (this.y < -5) {
             this.y = 410;
             this.x = 100;
         }
     }
     else if (keyPressed == 'down') {
-        this.y += this.speed;
-        if (this.y > 434) {
-            this.y = 434;
+        this.y += this.ySpeed;
+        if (this.y > 410) {
+            this.y = 410;
         }
     }
 }
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
