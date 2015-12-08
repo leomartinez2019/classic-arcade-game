@@ -24,7 +24,7 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
-
+    var message = "";
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
@@ -81,6 +81,8 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+        countLiveScore();
+        checkGameOver();
     }
 
     // Check collisions between the player and each enemy
@@ -90,8 +92,33 @@ var Engine = (function(global) {
             if (Math.abs(enemy.xValue - player.x) < 50 && Math.abs(enemy.yValue - player.y) < 60) {
                 player.y = 410;
                 player.x = 100;
+                lives -= 1;
+                if (lives == 0) {
+                    player.alive = false;
+                }
             }
         })
+    }
+
+    // TODO comment functionality
+    function countLiveScore() {
+        ctx.save();
+        ctx.fillStyle = "black";
+        ctx.clearRect(0,0,canvas.width,40);
+        ctx.font ="bold 24px Arial";
+        ctx.fillText("Lives: " + lives, 10, 20);
+        ctx.fillText(message, 150, 20);
+        ctx.fillText("Score: " + player.score, 380, 20);
+        ctx.restore();
+    }
+
+    // TODO comments
+    function checkGameOver() {
+        if (!player.alive) {
+            player.xSpeed = 0;
+            player.ySpeed = 0;
+            message = "GAME OVER!";
+        }
     }
 
     /* This is called by the update function  and loops through all of the
@@ -171,7 +198,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        // TODO
     }
 
     /* Go ahead and load all of the images we know we're going to need to
