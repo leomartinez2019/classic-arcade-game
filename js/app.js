@@ -85,6 +85,7 @@ Player.prototype.handleInput = function(keyPressed) {
         if (this.y < -5) {
             this.y = 410;
             this.x = 100;
+            this.score += 1;
         }
     }
     else if (keyPressed == 'down') {
