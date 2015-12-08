@@ -25,9 +25,18 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
     var message = "";
+    var button = doc.createElement('button');
+    button.setAttribute("id", "button");
+    button.innerHTML = "RESET";
+    button.addEventListener('click', function() {
+        console.log("You touched me");
+        reset()
+    });
+    doc.body.appendChild(button);
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
+
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -92,8 +101,8 @@ var Engine = (function(global) {
             if (Math.abs(enemy.xValue - player.x) < 50 && Math.abs(enemy.yValue - player.y) < 60) {
                 player.y = 410;
                 player.x = 100;
-                lives -= 1;
-                if (lives == 0) {
+                player.lives -= 1;
+                if (player.lives == 0) {
                     player.alive = false;
                 }
             }
@@ -106,7 +115,7 @@ var Engine = (function(global) {
         ctx.fillStyle = "black";
         ctx.clearRect(0,0,canvas.width,40);
         ctx.font ="bold 24px Arial";
-        ctx.fillText("Lives: " + lives, 10, 20);
+        ctx.fillText("Lives: " + player.lives, 10, 20);
         ctx.fillText(message, 150, 20);
         ctx.fillText("Score: " + player.score, 380, 20);
         ctx.restore();
@@ -199,6 +208,12 @@ var Engine = (function(global) {
      */
     function reset() {
         // TODO
+        player.lives = 5;
+        player.alive = true;
+        player.score = 0;
+        player.xSpeed = 100;
+        player.ySpeed = 84;
+        message = "";
     }
 
     /* Go ahead and load all of the images we know we're going to need to

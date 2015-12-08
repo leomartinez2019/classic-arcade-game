@@ -13,7 +13,7 @@ var Enemy = function() {
 };
 
 // TODO: comment this
-var lives = 5;
+//var lives = 5;
 //var score = 0;
 
 // A pythonic function in javascript
@@ -48,6 +48,7 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function() {
     this.score = 0;
+    this.lives = 5;
     this.alive = true;
     this.x = 100;
     this.y = 410;
