@@ -1,0 +1,16 @@
+body {
+    text-align: center;
+}
+
+#button {
+	background: #22f;
+	border-radius: 5px;
+	height: 36px;
+	color: white;
+	font-weight: bold;
+}
+
+#button:hover {
+	background: white;
+	color: blue;
+}
