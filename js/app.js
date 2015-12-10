@@ -43,6 +43,26 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.xValue, this.yValue);
 };
 
+// Gem class which gives more points to player
+var Gem = function() {
+    this.sprite = 'images/Star.png';
+    this.xGemArray = [0, 100, 200, 300, 400];
+    this.yGemArray = [70, 155, 240];
+    this.xVal = choice(this.xGemArray);
+    this.yVal = choice(this.yGemArray);
+}
+
+// Render gem on the board
+Gem.prototype.update = function() {
+    this.xVal = choice(this.xGemArray);
+    this.yVal = choice(this.yGemArray);
+};
+
+// Render gem
+Gem.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.xVal, this.yVal);
+};
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -101,7 +121,9 @@ Player.prototype.handleInput = function(keyPressed) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [new Enemy(), new Enemy(), new Enemy()];
+var gema = new Gem();
 var player = new Player();
+//var gema = new Gem();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

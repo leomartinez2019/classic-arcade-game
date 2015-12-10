@@ -198,7 +198,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
+        gema.render();
         player.render();
     }
 
@@ -225,6 +225,7 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
+        'images/Star.png',
         'images/char-boy.png'
     ]);
     Resources.onReady(init);
