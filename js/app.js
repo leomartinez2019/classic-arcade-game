@@ -12,9 +12,6 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
 };
 
-// TODO: comment this
-//var lives = 5;
-//var score = 0;
 
 // A pythonic function in javascript
 // to position the enemy randomly
