@@ -27,15 +27,18 @@ var Engine = (function(global) {
     var message = "";
     var button = doc.createElement('button');
     button.setAttribute("id", "button");
-    button.innerHTML = "RESET";
+    button.innerHTML = "RESET GAME";
     button.addEventListener('click', function() {
         console.log("You touched me");
         reset()
     });
-    doc.body.appendChild(button);
+    var div = doc.createElement('div');
+    div.appendChild(button);
+    doc.body.appendChild(div);
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
+
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -106,6 +109,10 @@ var Engine = (function(global) {
                 }
             }
         })
+        if (Math.abs(gema.xVal - player.x) < 50 && Math.abs(gema.yVal - player.y) < 60) {
+            gema.update();
+            player.score += 1;
+        }
     }
 
     // TODO comment functionality
@@ -115,7 +122,7 @@ var Engine = (function(global) {
         ctx.clearRect(0,0,canvas.width,40);
         ctx.font ="bold 24px Arial";
         ctx.fillText("Lives: " + player.lives, 10, 20);
-        ctx.fillText(message, 150, 20);
+        ctx.fillText(message, 170, 20);
         ctx.fillText("Score: " + player.score, 380, 20);
         ctx.restore();
     }
@@ -197,7 +204,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
+        gema.render();
         player.render();
     }
 
@@ -224,6 +231,7 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
+        'images/Star.png',
         'images/char-boy.png'
     ]);
     Resources.onReady(init);
