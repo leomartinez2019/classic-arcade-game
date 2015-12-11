@@ -24,7 +24,9 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
+    // Message to be shown upon unding game
     var message = "";
+    // Button to reset the game
     var button = doc.createElement('button');
     button.setAttribute("id", "button");
     button.innerHTML = "RESET GAME";
@@ -32,6 +34,7 @@ var Engine = (function(global) {
         console.log("You touched me");
         reset()
     });
+    // The div is used to center the button
     var div = doc.createElement('div');
     div.appendChild(button);
     doc.body.appendChild(div);
@@ -115,7 +118,10 @@ var Engine = (function(global) {
         }
     }
 
-    // TODO comment functionality
+    /* This function draws on the canvas the score and the
+     * number of player's lives and in case the player runs out of
+     * lives, a message saying "game over"
+     */
     function countLiveScore() {
         ctx.save();
         ctx.fillStyle = "black";
@@ -127,7 +133,9 @@ var Engine = (function(global) {
         ctx.restore();
     }
 
-    // TODO comments
+    /* This function monitors if the player
+     * runs out of lives
+     */
     function checkGameOver() {
         if (!player.alive) {
             player.xSpeed = 0;
@@ -213,12 +221,13 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // TODO: reset gem too
         player.lives = 5;
         player.alive = true;
         player.score = 0;
         player.xSpeed = 100;
         player.ySpeed = 84;
+        gema.xVal = choice(gema.xGemArray);
+        gema.yVal = choice(gema.yGemArray);
         message = "";
     }
 
