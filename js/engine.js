@@ -213,7 +213,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // TODO
+        // TODO: reset gem too
         player.lives = 5;
         player.alive = true;
         player.score = 0;
