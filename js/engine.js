@@ -24,9 +24,13 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
-    // Message to be shown upon unding game
+    /* Message to be shown upon ending game
+     * Initially no text, but then it is changed to "game over"
+     */
     var message = "";
-    // Button to reset the game
+    /* Button to reset the game
+     * When clicked calls the reset function
+     */
     var button = doc.createElement('button');
     button.setAttribute("id", "button");
     button.innerHTML = "RESET GAME";
@@ -34,7 +38,9 @@ var Engine = (function(global) {
         console.log("You touched me");
         reset()
     });
-    // The div is used to center the button
+    /* The div is created
+     * and the button is appended so it looks centered
+     */
     var div = doc.createElement('div');
     div.appendChild(button);
     doc.body.appendChild(div);
@@ -99,8 +105,9 @@ var Engine = (function(global) {
         checkGameOver();
     }
 
-    // Check collisions between the player and each enemy
-    // Sends the player to an initial position
+    /* Check collisions between the player and each enemy
+     * Sends the player to an initial position
+     */
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
             if (Math.abs(enemy.xValue - player.x) < 50 && Math.abs(enemy.yValue - player.y) < 60) {
@@ -112,6 +119,9 @@ var Engine = (function(global) {
                 }
             }
         })
+        /* Check if player reaches the gem (star)
+         * The score increases accordingly
+         */
         if (Math.abs(gema.xVal - player.x) < 50 && Math.abs(gema.yVal - player.y) < 60) {
             gema.update();
             player.score += 1;
@@ -137,6 +147,9 @@ var Engine = (function(global) {
      * runs out of lives
      */
     function checkGameOver() {
+        /* Check if player lost its 5 lives
+         * and avoid it to be moved
+         */
         if (!player.alive) {
             player.xSpeed = 0;
             player.ySpeed = 0;
@@ -221,6 +234,10 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+        /* Resets the player's score, speed, alive state
+         * and coordinates
+         * It also moves the gem to a different location
+         */
         player.lives = 5;
         player.alive = true;
         player.score = 0;

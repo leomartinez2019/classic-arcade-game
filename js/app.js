@@ -12,10 +12,6 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
 };
 
-// TODO: comment this
-//var lives = 5;
-//var score = 0;
-
 // A pythonic function in javascript
 // to position the enemy randomly
 // This function is called by the update function
@@ -52,13 +48,13 @@ var Gem = function() {
     this.yVal = choice(this.yGemArray);
 }
 
-// Render gem on the board
+// Update gem
 Gem.prototype.update = function() {
     this.xVal = choice(this.xGemArray);
     this.yVal = choice(this.yGemArray);
 };
 
-// Render gem
+// Render gem on the board
 Gem.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.xVal, this.yVal);
 };
@@ -77,17 +73,17 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
 }
 
-// TODO: comment this
+// Update the player depending on the key pressed
 Player.prototype.update = function() {
     this.handleInput();
 };
 
-// TODO: comment this
+// Render the player on the board
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// TODO: comment this
+// The keys to mo move the player up, down, right and left
 Player.prototype.handleInput = function(keyPressed) {
     if (keyPressed == 'right') {
         this.x += this.xSpeed;
