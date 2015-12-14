@@ -27,7 +27,7 @@ var Engine = (function(global) {
     /* Message to be shown upon ending game
      * Initially no text, but then it is changed to "game over"
      */
-    var message = "";
+    //var message = "";
     /* Button to reset the game
      * When clicked calls the reset function
      */
@@ -138,7 +138,7 @@ var Engine = (function(global) {
         ctx.clearRect(0,0,canvas.width,40);
         ctx.font ="bold 24px Arial";
         ctx.fillText("Lives: " + player.lives, 10, 20);
-        ctx.fillText(message, 170, 20);
+        ctx.fillText(player.message, 170, 20);
         ctx.fillText("Score: " + player.score, 380, 20);
         ctx.restore();
     }
@@ -153,7 +153,7 @@ var Engine = (function(global) {
         if (!player.alive) {
             player.xSpeed = 0;
             player.ySpeed = 0;
-            message = "GAME OVER!";
+            player.message = "GAME OVER!";
         }
     }
 
@@ -245,7 +245,7 @@ var Engine = (function(global) {
         player.ySpeed = 84;
         gema.xVal = choice(gema.xGemArray);
         gema.yVal = choice(gema.yGemArray);
-        message = "";
+        player.message = "";
     }
 
     /* Go ahead and load all of the images we know we're going to need to

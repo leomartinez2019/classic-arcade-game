@@ -66,6 +66,7 @@ var Player = function() {
     this.score = 0;
     this.lives = 5;
     this.alive = true;
+    this.message = "";
     this.x = 100;
     this.y = 410;
     this.xSpeed = 100;
