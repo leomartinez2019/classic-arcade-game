@@ -26,3 +26,6 @@ $ cd classic-arcade-game
 ######Resources used to complete this project:
 * [Object Oriented JavaScript](https://www.udacity.com/course/viewer#!/c-ud015)
 * [HTML5 Canvas](https://www.udacity.com/course/viewer#!/c-ud292)
+
+#####License
+(Released Under MIT License)[https://github.com/leonardo384/classic-arcade-game/blob/master/LICENSE.txt]
