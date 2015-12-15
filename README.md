@@ -1,10 +1,9 @@
 #Classic arcade game clone
-===============================
 
-####Project Overview
+##Project Overview
 This project tries to accomplish the goal of using object-oriented javascript to recreate the classic arcade game Frogger.
 
-###Installation
+##Installation
 Clone the git repository and open the index.html file in your browser
 ```
 $ git clone https://github.com/leonardo384/classic-arcade-game.git
@@ -23,9 +22,13 @@ $ cd classic-arcade-game
 * You can play [here](http://leonardomartinez.co/classic-arcade-game/)
 * Good luck!
 
-######Resources used to complete this project:
+## Contributing to this project
+You're free to submit pull requests or discuss issues.
+
+##Resources used to complete this project:
 * [Object Oriented JavaScript](https://www.udacity.com/course/viewer#!/c-ud015)
 * [HTML5 Canvas](https://www.udacity.com/course/viewer#!/c-ud292)
+* [Eloquent JavaScript](http://eloquentjavascript.net/Eloquent_JavaScript.pdf)
 
-#####License
-(Released Under MIT License)[https://github.com/leonardo384/classic-arcade-game/blob/master/LICENSE.txt]
+##License
+[Released Under MIT License](https://github.com/leonardo384/classic-arcade-game/blob/master/LICENSE.txt)
