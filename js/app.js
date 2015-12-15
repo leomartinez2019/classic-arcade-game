@@ -48,6 +48,12 @@ var Gem = function() {
     this.yVal = choice(this.yGemArray);
 }
 
+// Reset Gem, this function is called when the reset button is pressed
+Gem.prototype.reset = function() {
+    this.xVal = choice(this.xGemArray);
+    this.yVal = choice(this.yGemArray);
+}
+
 // Update gem
 Gem.prototype.update = function() {
     this.xVal = choice(this.xGemArray);
@@ -74,9 +80,43 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
 }
 
+// Reset the player's attributes lives, alive, speed, score and message
+// This function is called by the reset button
+Player.prototype.reset = function() {
+    this.xSpeed = 100;
+    this.ySpeed = 84;
+    this.alive = true;
+    this.lives = 5;
+    this.score = 0;
+    this.message = "";
+}
+
+// Function to determine the player's lives
+Player.prototype.countLives = function() {
+    ctx.save();
+    ctx.fillStyle = "black";
+    ctx.clearRect(0,0,canvas.width,40);
+    ctx.font ="bold 24px Arial";
+    ctx.fillText("Lives: " + this.lives, 10, 20);
+    ctx.fillText(this.message, 170, 20);
+    ctx.fillText("Score: " + this.score, 380, 20);
+    ctx.restore();
+}
+
+// Check if player runs out of lives
+Player.prototype.checkGameOver = function() {
+    if (!this.alive) {
+            this.xSpeed = 0;
+            this.ySpeed = 0;
+            this.message = "GAME OVER!";
+        }
+}
+
 // Update the player depending on the key pressed
 Player.prototype.update = function() {
     this.handleInput();
+    this.countLives();
+    this.checkGameOver();
 };
 
 // Render the player on the board

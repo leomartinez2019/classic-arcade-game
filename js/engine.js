@@ -24,10 +24,7 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
-    /* Message to be shown upon ending game
-     * Initially no text, but then it is changed to "game over"
-     */
-    //var message = "";
+    
     /* Button to reset the game
      * When clicked calls the reset function
      */
@@ -35,8 +32,8 @@ var Engine = (function(global) {
     button.setAttribute("id", "button");
     button.innerHTML = "RESET GAME";
     button.addEventListener('click', function() {
-        console.log("You touched me");
-        reset()
+        player.reset();
+        gema.reset();
     });
     /* The div is created
      * and the button is appended so it looks centered
@@ -84,7 +81,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
+        player.reset();
         lastTime = Date.now();
         main();
     }
@@ -101,8 +98,6 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
-        countLiveScore();
-        checkGameOver();
     }
 
     /* Check collisions between the player and each enemy
@@ -125,35 +120,6 @@ var Engine = (function(global) {
         if (Math.abs(gema.xVal - player.x) < 50 && Math.abs(gema.yVal - player.y) < 60) {
             gema.update();
             player.score += 1;
-        }
-    }
-
-    /* This function draws on the canvas the score and the
-     * number of player's lives and in case the player runs out of
-     * lives, a message saying "game over"
-     */
-    function countLiveScore() {
-        ctx.save();
-        ctx.fillStyle = "black";
-        ctx.clearRect(0,0,canvas.width,40);
-        ctx.font ="bold 24px Arial";
-        ctx.fillText("Lives: " + player.lives, 10, 20);
-        ctx.fillText(player.message, 170, 20);
-        ctx.fillText("Score: " + player.score, 380, 20);
-        ctx.restore();
-    }
-
-    /* This function monitors if the player
-     * runs out of lives
-     */
-    function checkGameOver() {
-        /* Check if player lost its 5 lives
-         * and avoid it to be moved
-         */
-        if (!player.alive) {
-            player.xSpeed = 0;
-            player.ySpeed = 0;
-            player.message = "GAME OVER!";
         }
     }
 
@@ -229,25 +195,6 @@ var Engine = (function(global) {
         player.render();
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
-    function reset() {
-        /* Resets the player's score, speed, alive state
-         * and coordinates
-         * It also moves the gem to a different location
-         */
-        player.lives = 5;
-        player.alive = true;
-        player.score = 0;
-        player.xSpeed = 100;
-        player.ySpeed = 84;
-        gema.xVal = choice(gema.xGemArray);
-        gema.yVal = choice(gema.yGemArray);
-        player.message = "";
-    }
-
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
      * all of these images are properly loaded our game will start.
@@ -264,7 +211,9 @@ var Engine = (function(global) {
 
     /* Assign the canvas' context object to the global variable (the window
      * object when run in a browser) so that developer's can use it more easily
-     * from within their app.js files.
+     * from within their app.js files. The same is true for the canvas object to allow
+     * its use in order to update the score and the number of player's lives
      */
     global.ctx = ctx;
+    global.canvas = canvas;
 })(this);
