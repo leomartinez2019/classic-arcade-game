@@ -1,8 +1,15 @@
 #Classic arcade game clone
 ===============================
 
-######Project Overview
+####Project Overview
 This project tries to accomplish the goal of using object-oriented javascript to recreate the classic arcade game Frogger.
+
+###Installation
+Clone the git repository and open the index.html file in your browser
+```
+$ git clone https://github.com/leonardo384/classic-arcade-game.git
+$ cd classic-arcade-game
+```
 
 ##Instructions:
 * Initially the player has five lives
