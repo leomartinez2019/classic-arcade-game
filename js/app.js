@@ -1,84 +1,97 @@
-// Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    this.speedList = [50, 150, 250, 350];
-    this.yList = [65, 145, 230];
-    this.xList = [-150, -120, -90, -60, -30];
-    this.xValue = choice(this.xList);
-    this.yValue = choice(this.yList);
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+// The superclass from which Enemy, Player and Gem inherit
+// It has two functions: choice and render
+var Entity = function(url) {
+    this.sprite = url;
 };
 
 // A pythonic function in javascript
-// to position the enemy randomly
+// to position the enemy and gem randomly
 // This function is called by the update function
-function choice(container) {
-    // Returns the possible y coordinates of the enemies
-    var indx = Math.floor(Math.random() * container.length);
-        return container[indx];
-}
+// Returns the possible y coordinates of the enemies
+Entity.prototype.choice = function(entityArray) {
+    var indx = Math.floor(Math.random() * entityArray.length);
+        return entityArray[indx];
+};
+
+// This function is used by all the three entities
+// Renders (draws) the sprite to the board
+Entity.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.xValue, this.yValue);
+};
+
+// Enemies our player must avoid
+var Enemy = function(url) {
+    Entity.call(this, url);
+    // Variables applied to each of our instances go here,
+    // we've provided one for you to get started
+    // This is an array of different speeds for the enemy to choose from
+    this.speedList = [50, 150, 250, 350];
+    // The three different y locations from which the enemies appear
+    this.yList = [65, 145, 230];
+    // This list is used to avoid enemies to clutter all the time
+    this.xList = [-150, -120, -90, -60, -30];
+    this.xValue = this.choice(this.xList);
+    this.yValue = this.choice(this.yList);
+    // The image/sprite for our enemies, this uses
+    // a helper we've provided to easily load images
+    //this.sprite = 'images/enemy-bug.png';
+};
+
+// Inheritance of parent prototype
+Enemy.prototype = Object.create(Entity.prototype);
+Enemy.prototype.constructor = Enemy;
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    this.xValue += choice(this.speedList) * dt;
+    this.xValue += this.choice(this.speedList) * dt;
     if (this.xValue > 505) {
-        this.xValue = choice(this.xList);
-        this.yValue = choice(this.yList);
+        this.xValue = this.choice(this.xList);
+        this.yValue = this.choice(this.yList);
     }
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
 };
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.xValue, this.yValue);
-};
-
-// Gem class which gives more points to player
-var Gem = function() {
-    this.sprite = 'images/Star.png';
+// Gem class which gives points to player
+// Inherits from Entity
+var Gem = function(url) {
+    Entity.call(this, url);
     this.xGemArray = [0, 100, 200, 300, 400];
     this.yGemArray = [70, 155, 240];
-    this.xVal = choice(this.xGemArray);
-    this.yVal = choice(this.yGemArray);
+    this.xValue = this.choice(this.xGemArray);
+    this.yValue = this.choice(this.yGemArray);
 }
 
-// Reset Gem, this function is called when the reset button is pressed
-Gem.prototype.reset = function() {
-    this.xVal = choice(this.xGemArray);
-    this.yVal = choice(this.yGemArray);
-}
+// Parent inheritance 
+Gem.prototype = Object.create(Entity.prototype);
+Gem.prototype.constructor = Gem;
 
-// Update gem
+// Update Gem, this function is called when the reset button is pressed
+// Or the player touches this object
 Gem.prototype.update = function() {
-    this.xVal = choice(this.xGemArray);
-    this.yVal = choice(this.yGemArray);
-};
-
-// Render gem on the board
-Gem.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.xVal, this.yVal);
+    this.xValue = this.choice(this.xGemArray);
+    this.yValue = this.choice(this.yGemArray);
 };
 
 // Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-var Player = function() {
+// This class inherits from Entity
+var Player = function(url) {
+    Entity.call(this, url);
     this.score = 0;
     this.lives = 5;
     this.alive = true;
     this.message = "";
-    this.x = 100;
-    this.y = 410;
+    this.xValue = 100;
+    this.yValue = 410;
     this.xSpeed = 100;
     this.ySpeed = 84;
-    this.sprite = 'images/char-boy.png';
 }
+
+// Prototype inheritance from parent class
+Player.prototype = Object.create(Entity.prototype);
+Player.prototype.constructor = Player;
 
 // Reset the player's attributes lives, alive, speed, score and message
 // This function is called by the reset button
@@ -92,6 +105,7 @@ Player.prototype.reset = function() {
 }
 
 // Function to determine the player's lives
+// It updates the score at the top of the game board
 Player.prototype.countLives = function() {
     ctx.save();
     ctx.fillStyle = "black";
@@ -103,7 +117,7 @@ Player.prototype.countLives = function() {
     ctx.restore();
 }
 
-// Check if player runs out of lives
+// Check if player runs out of lives in which case the message "game over" appears
 Player.prototype.checkGameOver = function() {
     if (!this.alive) {
             this.xSpeed = 0;
@@ -119,37 +133,32 @@ Player.prototype.update = function() {
     this.checkGameOver();
 };
 
-// Render the player on the board
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
 // The keys to mo move the player up, down, right and left
 Player.prototype.handleInput = function(keyPressed) {
     if (keyPressed == 'right') {
-        this.x += this.xSpeed;
-        if (this.x > 415) {
-            this.x = 415;
+        this.xValue += this.xSpeed;
+        if (this.xValue > 415) {
+            this.xValue = 415;
         }
     }
     else if (keyPressed == 'left') {
-        this.x -= this.xSpeed;
-        if (this.x < -5) {
-            this.x = -5;
+        this.xValue -= this.xSpeed;
+        if (this.xValue < -5) {
+            this.xValue = -5;
         }
     }
     else if (keyPressed == 'up') {
-        this.y -= this.ySpeed;
-        if (this.y < -5) {
-            this.y = 410;
-            this.x = 100;
+        this.yValue -= this.ySpeed;
+        if (this.yValue < -5) {
+            this.yValue = 410;
+            this.xValue = 100;
             this.score -= 1;
         }
     }
     else if (keyPressed == 'down') {
-        this.y += this.ySpeed;
-        if (this.y > 410) {
-            this.y = 410;
+        this.yValue += this.ySpeed;
+        if (this.yValue > 410) {
+            this.yValue = 410;
         }
     }
 }
@@ -157,10 +166,14 @@ Player.prototype.handleInput = function(keyPressed) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [new Enemy(), new Enemy(), new Enemy()];
-var gema = new Gem();
-var player = new Player();
-//var gema = new Gem();
+//var allEnemies = [new Enemy('images/enemy-bug.png'), new Enemy('images/enemy-bug.png'), new Enemy('images/enemy-bug.png')];
+var allEnemies = [];
+for (var indx = 0; indx < 3; indx++) {
+    allEnemies.push(new Enemy('images/enemy-bug.png'));
+}
+
+var gema = new Gem('images/Star.png');
+var player = new Player('images/char-boy.png');
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

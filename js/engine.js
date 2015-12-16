@@ -33,7 +33,7 @@ var Engine = (function(global) {
     button.innerHTML = "RESET GAME";
     button.addEventListener('click', function() {
         player.reset();
-        gema.reset();
+        gema.update();
     });
     /* The div is created
      * and the button is appended so it looks centered
@@ -105,9 +105,9 @@ var Engine = (function(global) {
      */
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
-            if (Math.abs(enemy.xValue - player.x) < 50 && Math.abs(enemy.yValue - player.y) < 60) {
-                player.y = 410;
-                player.x = 100;
+            if (Math.abs(enemy.xValue - player.xValue) < 50 && Math.abs(enemy.yValue - player.yValue) < 60) {
+                player.yValue = 410;
+                player.xValue = 100;
                 player.lives -= 1;
                 if (player.lives == 0) {
                     player.alive = false;
@@ -117,7 +117,7 @@ var Engine = (function(global) {
         /* Check if player reaches the gem (star)
          * The score increases accordingly
          */
-        if (Math.abs(gema.xVal - player.x) < 50 && Math.abs(gema.yVal - player.y) < 60) {
+        if (Math.abs(gema.xValue - player.xValue) < 50 && Math.abs(gema.yValue - player.yValue) < 60) {
             gema.update();
             player.score += 1;
         }
