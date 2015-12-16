@@ -1,7 +1,7 @@
 #Classic arcade game clone
 
 ##Project Overview
-This project tries to accomplish the goal of using object-oriented javascript to recreate the classic arcade game Frogger.
+This project tries to accomplish the goal of using object-oriented javascript to recreate the classic arcade game Frogger. The main concepts in object-oriented programming applied here are: prototype delegation, scopes, code reuse and the use of the keyword "this".
 
 ##Installation
 Clone the git repository and open the index.html file in your browser
@@ -26,9 +26,9 @@ $ cd classic-arcade-game
 You're free to submit pull requests or discuss issues.
 
 ##Resources used to complete this project:
-* [Object Oriented JavaScript](https://www.udacity.com/course/viewer#!/c-ud015)
-* [HTML5 Canvas](https://www.udacity.com/course/viewer#!/c-ud292)
-* [Eloquent JavaScript](http://eloquentjavascript.net/Eloquent_JavaScript.pdf)
+* [Object Oriented JavaScript](https://www.udacity.com/course/viewer#!/c-ud015): a Udacity course about closures, scope, prototypal classes and more.
+* [HTML5 Canvas](https://www.udacity.com/course/viewer#!/c-ud292): a brief introduction to canvas and game loops.
+* [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects): a tutorial about how to tackle JavaScript objects
 
 ##License
 [Released Under MIT License](https://github.com/leonardo384/classic-arcade-game/blob/master/LICENSE.txt)
