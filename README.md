@@ -8,5 +8,5 @@ Classic arcade game clone
 * The player scores by taking a star.
 * If the player touches the water (upper blue area) it loses one point. 
 * The game ends when the player loses its five lives.
-* You can play [here](http://leonardomartinez.co/classic-arcade-game/)
+* You can play [here](http://leomartinez2019.github.io/classic-arcade-game/)
 * Good luck!
